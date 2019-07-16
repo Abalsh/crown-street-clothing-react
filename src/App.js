@@ -16,6 +16,8 @@ class App extends React.Component {
     }
 
   }
+  unsubscribeFromAuth = null;
+  
   componentDidMount() {
     // auth comes from firebase.auth in firebase.util
     auth.onAuthStateChanged(user => {
@@ -24,7 +26,9 @@ class App extends React.Component {
       console.log(user);
     })
   }
-  
+  componentWillUnmount(){
+    this.unsubscribeFromAuth();
+  }
   render() {
     return (
 
