@@ -8,20 +8,26 @@ import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up
 import Header from './components/header/header.component';
 import { auth } from './firebase/firebase.util';
 
+class App extends React.Component() {
+  constructor(props) {
+    super(props);
 
-function App() {
-  return (
+    
+  }
+  render() {
+    return (
 
-    <div className="App">
-      <Header />
-      <Switch>
-        <Route exact path='/' component={HomePage} />
-        <Route path='/shop' component={ShopPage} />
-        <Route path='/signin' component={SignInAndSignUpPage} />
-      </Switch>
+      <div className="App">
+        <Header />
+        <Switch>
+          <Route exact path='/' component={HomePage} />
+          <Route path='/shop' component={ShopPage} />
+          <Route path='/signin' component={SignInAndSignUpPage} />
+        </Switch>
 
-    </div>
-  );
+      </div>
+    );
+  }
 }
 
 export default App;
