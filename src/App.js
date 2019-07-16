@@ -8,12 +8,23 @@ import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up
 import Header from './components/header/header.component';
 import { auth } from './firebase/firebase.util';
 
-class App extends React.Component() {
+class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      currentUser: null
+    }
 
-    
   }
+  componentDidMount() {
+    // auth comes from firebase.auth in firebase.util
+    auth.onAuthStateChanged(user => {
+      this.setState({ currentUser: user });
+
+      console.log(user);
+    })
+  }
+  
   render() {
     return (
 
