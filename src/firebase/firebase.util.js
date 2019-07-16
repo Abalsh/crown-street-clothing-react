@@ -3,14 +3,14 @@ import 'firebase/firestore';
 import 'firebase/auth';
 
 const config = {
-    apiKey: "AIzaSyC6d57Yui1yzqS73AUY4V6VPaLu9ClUay4",
-    authDomain: "crown-street-wear.firebaseapp.com",
-    databaseURL: "https://crown-street-wear.firebaseio.com",
-    projectId: "crown-street-wear",
+    apiKey: "AIzaSyC8OoMArQ1VeSbNts1Zk32eLq_Agghsmvs",
+    authDomain: "crown-stree.firebaseapp.com",
+    databaseURL: "https://crown-stree.firebaseio.com",
+    projectId: "crown-stree",
     storageBucket: "",
-    messagingSenderId: "157770681568",
-    appId: "1:157770681568:web:391342b0b37f9cc7"
-};
+    messagingSenderId: "634647433065",
+    appId: "1:634647433065:web:035ccaf5d8d71693"
+  };
 
 firebase.initializeApp(config);
 
