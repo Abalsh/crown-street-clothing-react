@@ -32,4 +32,11 @@ const Header = ({ currentUser }) => (
     </div>
 )
 
-export default Header;
+// this function gets the reducer from the root reducer to use
+
+const mapStateToProps = state => ({
+    currentUser: state.user.currentUser //this is like saying rootreducer.userReducer.currentUser
+})
+
+// 1st argument has to be the reducer in the root reducer that we need to do an action. in this case userReducer
+export default connect(mapStateToProps)(Header);
