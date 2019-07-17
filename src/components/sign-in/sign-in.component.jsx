@@ -3,7 +3,7 @@ import React from 'react';
 
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
-import { signInWithGoogle } from '../../firebase/firebase.util';
+import { auth, signInWithGoogle } from '../../firebase/firebase.util';
 import './sign-in.styles.scss';
 
 class SignIn extends React.Component {
@@ -16,10 +16,17 @@ class SignIn extends React.Component {
         }
     }
 
-    handleSubmit = e => {
+    handleSubmit = async e => {
         e.preventDefault();
+        const {email, password} = this.state // destructure
+        try {
+            await auth.signInWithEmailAndPassword(email,password);
+            this.setState({ email: '', password: '' })
 
-        this.setState({ email: '', password: '' })
+        } catch(error){
+            console.log(error);
+        }
+
     }
     handleChange = e => {
         const { value, name } = e.target; // destructure, this saves us from writing e.target.value and etc.
