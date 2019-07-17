@@ -21,27 +21,44 @@ class App extends React.Component {
   componentDidMount() {
     // auth comes from firebase.auth in firebase.util.
     // turned into async because we know we're making a potential api request
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async user => {
-      createUserProfileDocument(user)
-    });
-  }
-  componentWillUnmount() {
-    this.unsubscribeFromAuth();
-  }
-  render() {
-    return (
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
 
-      <div className="App">
-        <Header currentUser={this.state.currentUser} />
-        <Switch>
-          <Route exact path='/' component={HomePage} />
-          <Route path='/shop' component={ShopPage} />
-          <Route path='/signin' component={SignInAndSignUpPage} />
-        </Switch>
+        userRef.onSnapshot(snapshot => {
+          this.setState({
+            currentUser: {
+              id: snapshot.id,
+              ...snapshot.data()
+            }
+          }, () => {
+            console.log(this.state);
+          })
+        });
 
-      </div>
-    );
-  }
-}
+      } else {
+        this.setState({ currentUser: userAuth });
+      }
+    }
+    )}
+      componentWillUnmount() {
+        this.unsubscribeFromAuth();
+      }
+
+      render() {
+        return (
+
+          <div className="App">
+            <Header currentUser={this.state.currentUser} />
+            <Switch>
+              <Route exact path='/' component={HomePage} />
+              <Route path='/shop' component={ShopPage} />
+              <Route path='/signin' component={SignInAndSignUpPage} />
+            </Switch>
+
+          </div>
+        );
+      }
+    }
 
 export default App;
