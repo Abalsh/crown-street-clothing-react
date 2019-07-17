@@ -1,3 +1,4 @@
+// UNFINISHED GOOGLE LOGIN BUTTON
 import React from 'react';
 
 import FormInput from '../form-input/form-input.component';
@@ -36,9 +37,12 @@ class SignIn extends React.Component {
             
                     <FormInput name='password' type='password' value={this.state.password} handleChange={this.handleChange} label="Password" required />
                     
-
-                    <CustomButton type="submit"> SIGN IN </CustomButton>
-                    <CustomButton onClick={signInWithGoogle}> SIGN IN </CustomButton>
+                    <div className='buttons'>
+                    <CustomButton type="submit"> LOGIN </CustomButton>
+                    <CustomButton onClick={signInWithGoogle } isGoogleSignIn> 
+                    GOOGLE LOGIN
+                    </CustomButton>
+                    </div>
                 </form>
             </div>
         )
