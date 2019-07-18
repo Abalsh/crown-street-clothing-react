@@ -9,7 +9,7 @@ import {ReactComponent as Logo} from '../../assets/crown.svg';
 
 import './header.styles.scss';
 
-const Header = ({ currentUser }) => (
+const Header = ({ currentUser, hidden }) => (
     <div className = 'header'>
         <Link to="/">
             <Logo className='log'/>
@@ -31,15 +31,20 @@ const Header = ({ currentUser }) => (
             )}
             <CartIcon/>
         </div>
-        <CartDropdown/>
+        {
+            hidden ? null : <CartDropdown/>
+        }
+        
     </div>
 )
 
 // this function gets the reducer from the root reducer to use
 
-const mapStateToProps = state => ({
-    currentUser: state.user.currentUser //this is like saying rootreducer.userReducer.currentUser
-})
+const mapStateToProps = ({user: { currentUser }, cart: { hidden }}) => ({
+    currentUser,
+    hidden
+
+});
 
 // 1st argument has to be the reducer in the root reducer that we need to do an action. in this case userReducer
 export default connect(mapStateToProps)(Header);
