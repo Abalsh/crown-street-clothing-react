@@ -10,10 +10,13 @@ const persistConfig = {
     storage,
     whitelist: ['cart'] // we just want to persist the cart
 }
-// we don't persist user because firebase handles it
 
-// combine reducers is now an object which has our userReducer as a property.
-export default combineReducers({
+const rootReducer = combineReducers({
     user: userReducer,
     cart: cartReducer
 })
+
+// we don't persist user because firebase handles it
+
+// combine reducers is now an object which has our userReducer as a property.
+export default persistReducer(persistConfig, rootReducer)
