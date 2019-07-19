@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage'; // geting the localstorage obje
 
 import userReducer from './user/user.reducer';
 import cartReducer from './cart/cart.reducer';
+import directoryReducer from './directory/directory.reducer';
 
 const persistConfig = {
     key: 'root',
@@ -16,7 +17,8 @@ const persistConfig = {
 // combine reducers is now an object which has our userReducer as a property.
 const rootReducer = combineReducers({
     user: userReducer,
-    cart: cartReducer
+    cart: cartReducer,
+    directory: directoryReducer
 })
 
 // exporting a modified ver. of our rootReducer, so that it has persistance capabilities.
