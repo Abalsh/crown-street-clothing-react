@@ -12,6 +12,10 @@ import {selectCurrentUser} from '../../redux/user/user.selectors';
 
 import './header.styles.scss';
 
+const handleSignOut = () => {
+    auth.signOut()
+}
+
 const Header = ({ currentUser, hidden }) => (
     <div className = 'header'>
         <Link to="/">
@@ -26,7 +30,7 @@ const Header = ({ currentUser, hidden }) => (
             </Link>
             {
                 currentUser ? (               
-                 <div className='option' onClick={() => auth.signOut()}>
+                 <div className='option' onClick={handleSignOut}>
                      SIGN OUT
                 </div> 
             ) : (
