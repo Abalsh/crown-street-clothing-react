@@ -13,7 +13,7 @@ const SripeCheckedoutButton = ({ price }) => {
     return(
     <div>
         <StripeCheckout 
-        label='Pay'
+        label='Pay With Your Credit/Debit Card'
         name='CRWN Streetwear'
         img= 'https://svgshare.com/i/CUz.svg'
         description={`Your Total Is $${ price }`}

@@ -19,7 +19,7 @@ const handleSignOut = () => {
 const Header = ({ currentUser, hidden }) => (
     <div className = 'header'>
         <Link to="/">
-            <Logo className='log'/>
+            <Logo className='logo'/>
         </Link>
         <div className='options'>
             <Link className='option' to='/shop'>
