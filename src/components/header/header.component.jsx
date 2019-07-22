@@ -11,6 +11,7 @@ import {selectCurrentUser} from '../../redux/user/user.selectors';
 
 
 import {HeaderContainer, LogoContainer, OptionsContainer, OptionLink} from './header.styles';
+
 const handleSignOut = () => {
     auth.signOut()
 }
