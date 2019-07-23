@@ -19,6 +19,7 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
+    const { setCurrentUser} = this.props
     // auth comes from firebase.auth in firebase.util.
     // turned into async because we know we're making a potential api request
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
@@ -26,14 +27,14 @@ class App extends React.Component {
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot(snapShot => {
-          this.props.setCurrentUser({
+          setCurrentUser({
             id: snapShot.id,
             ...snapShot.data()
           }
           )
         });
       } else {
-        this.props.setCurrentUser(userAuth);
+        setCurrentUser(userAuth);
       }
     }
     )

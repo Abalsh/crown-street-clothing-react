@@ -11,7 +11,7 @@ const config = {
     messagingSenderId: "634647433065",
     appId: "1:634647433065:web:035ccaf5d8d71693"
   };
-// take user object and store in database 
+// take user object and store in database, specifically the users collection
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if(!userAuth) return; // if no user logged, return nothing
 
@@ -34,6 +34,18 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     }
   }
   return userRef;
+}
+
+export const addCollectionAndDocuments = (collectionKey, objectsToAdd) => {
+  const collectionRef = firestore.collection(collectionKey);
+  
+
+  const batch = firestore.batch();
+  objectsToAdd.forEach(object => {
+    const newDocRef = collectionRef.doc();
+    batch.set(newDocRef, object);  
+  });
+  batch.commit();
 }
 
 firebase.initializeApp(config);
