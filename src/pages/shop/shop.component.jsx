@@ -5,7 +5,9 @@ import CollectionPage from '../collection/collection.component';
 import CollectionOverview from '../../components/collections-overview/collections-overview.component';
 
 // we want match to display the path, which in this case is shop
-const ShopPage = ({ match }) => {
+class ShopPage extends React.Component{  
+    render(){
+        const { match } = this.props;
     return (
         <div className="shop-page">
             <Route exact path={`${match.path}`} component={CollectionOverview} />
@@ -13,5 +15,7 @@ const ShopPage = ({ match }) => {
         </div>
     )
 }
+}
+
 
 export default ShopPage;
