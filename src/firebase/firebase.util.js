@@ -36,7 +36,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 }
 
-export const addCollectionAndDocuments = (collectionKey, objectsToAdd) => {
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
   const collectionRef = firestore.collection(collectionKey);
   
 
@@ -45,7 +45,24 @@ export const addCollectionAndDocuments = (collectionKey, objectsToAdd) => {
     const newDocRef = collectionRef.doc();
     batch.set(newDocRef, object);  
   });
-  batch.commit();
+  return await batch.commit();
+}
+
+export const convertCollectionsSnapshotToMap = (collections) => {
+  const transformedCollection = collections.docs.map(doc => {
+    const { title, items} = doc.data();
+    
+    return {
+      routeName: encodeURI(title.toLowerCase()), // this builtin JS will transform spaces and symbols to a readable URL format 
+      id: doc.id,
+      title,
+      items
+    } ;
+  });
+  return transformedCollection.reduce((acc, collection) => {
+    acc[collection.title.toLowerCase()] = collection;
+    return acc;
+  }, {});
 }
 
 firebase.initializeApp(config);
