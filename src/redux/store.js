@@ -4,7 +4,7 @@ import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import rootReducer from './root-reducer';
 
-const middlewares = [thunk];
+const middlewares = [thunk]; // thunk catches actions that are functions and putting 'dispatch' as a parameter for said functions.
 if ( process.env.NODE_ENV === 'development'){
     middlewares.push(logger);
 }
