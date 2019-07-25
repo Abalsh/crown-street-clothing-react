@@ -1,3 +1,8 @@
+// TO DO: SAGA-FY SIGN OUT BUTTON BECAUSE IT DOES NOT WORK
+// TO DO: CONSIDER CLEARING CART USING SAGAS
+// TO DO: CONSIDER SIGNING UP WITH SAGAS
+
+
 import { takeLatest, put, all, call } from 'redux-saga/effects';
 
 import UserActionTypes from './user.types'
