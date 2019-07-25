@@ -10,7 +10,7 @@ import ShopPage from './pages/shop/shop.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import Header from './components/header/header.component';
 import CheckoutPage from './pages/checkout/checkout.component';
-
+import {checkUserSession} from './redux/user/user.actions';
 
 
 class App extends React.Component {
@@ -18,25 +18,9 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
+    const {checkUserSession} = this.props;
+    checkUserSession();
 
-    // auth comes from firebase.auth in firebase.util.
-    // turned into async because we know we're making a potential api request
-  //   this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-  //   if (userAuth) {
-  //     const userRef = await createUserProfileDocument(userAuth);
-
-  //       userRef.onSnapshot(snapShot => {
-  //         setCurrentUser({
-  //           id: snapShot.id,
-  //           ...snapShot.data()
-  //         }
-  //         )
-  //       });
-  //     } else {
-  //       setCurrentUser(userAuth);
-  //     }
-  //   }
-  //   )
   }
   componentWillUnmount() {
     this.unsubscribeFromAuth();
@@ -71,5 +55,8 @@ class App extends React.Component {
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser
 })
+const mapDispatchToProps = dispatch => ({
+  checkUserSession: () => dispatch(checkUserSession())
+})
 //  In the context of app.js the 1st arg should be null
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
