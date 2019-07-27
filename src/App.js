@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import { Switch, Route,Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -13,23 +13,12 @@ import CheckoutPage from './pages/checkout/checkout.component';
 import {checkUserSession} from './redux/user/user.actions';
 
 
-class App extends React.Component {
-
-  unsubscribeFromAuth = null;
-
-  componentDidMount() {
-    const {checkUserSession} = this.props;
-    checkUserSession();
-
-  }
-  componentWillUnmount() {
-    this.unsubscribeFromAuth();
-  }
-
-  render() {
-    const { currentUser } = this.props;
-    return (
-
+const App = ({ checkUserSession, currentUser }) => {
+  useEffect(() => {
+    checkUserSession()
+  },[checkUserSession]) // this array makes sure it runs just one time, stops checkUserSession from re-rendering App.js every time currentUser changes
+    // we put checkUserSession in the array because it's a prop passed from another componented  
+  return (
       <div className="App">
         <Header />
         <Switch>
@@ -50,8 +39,8 @@ class App extends React.Component {
 
       </div>
     );
-  }
-}
+  };
+
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser
 })

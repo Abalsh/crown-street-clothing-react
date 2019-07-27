@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -9,21 +9,18 @@ import CollectionsOverviewContainer from '../../components/collections-overview/
 
 
 // we want match to display the path, which in this case is shop
-class ShopPage extends React.Component {
-    componentDidMount() {
-        const { fetchCollectionsStart } = this.props;
-        fetchCollectionsStart()
-    }
-    render() {
-        const { match } = this.props;
-        return (
-            <div className="shop-page">
-                <Route exact path={`${match.path}`} component={CollectionsOverviewContainer} />
-                <Route path={`${match.path}/:collectionId`} component={CollectionPageContainer} />
-            </div>
-        )
-    }
-}
+const ShopPage = ({ fetchCollectionsStart, match }) => {
+
+    useEffect(() => {
+        fetchCollectionsStart();
+    }, [fetchCollectionsStart]) // same concept as app.js, the reason why the array isn't empty is because of a dependency warning.
+    return (
+        <div className="shop-page">
+            <Route exact path={`${match.path}`} component={CollectionsOverviewContainer} />
+            <Route path={`${match.path}/:collectionId`} component={CollectionPageContainer} />
+        </div>
+    )
+};
 
 const mapDispatchToProps = dispatch => ({
     fetchCollectionsStart: () => dispatch(fetchCollectionsStart())
