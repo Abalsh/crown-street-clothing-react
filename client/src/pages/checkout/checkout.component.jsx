@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import CheckoutItem from '../../components/checkout-item/checkout-item.component';
-import StripeCheckedoutButton from '../../components/stripe-button/stripe-button.components';
-import {selectCartItems, selectCartTotal} from '../../redux/cart/cart-selectors';
+import StripeCheckoutButton from '../../components/stripe-button/stripe-button.components';
+import { selectCartItems, selectCartTotal } from '../../redux/cart/cart-selectors';
 
-import {CheckoutPageContainer, CheckoutHeaderContainer, HeaderBlockContainer, TotalContainer, WarningContainer} from './checkout.styles.jsx';
+import { CheckoutPageContainer, CheckoutHeaderContainer, HeaderBlockContainer, TotalContainer, WarningContainer } from './checkout.styles.jsx';
 
-const CheckoutPage = ({cartItems, total}) => (
+const CheckoutPage = ({ cartItems, total }) => (
     <CheckoutPageContainer>
         <CheckoutHeaderContainer>
             <HeaderBlockContainer>
@@ -28,8 +28,8 @@ const CheckoutPage = ({cartItems, total}) => (
             </HeaderBlockContainer>
         </CheckoutHeaderContainer>
         {
-            cartItems.map(cartItem => <CheckoutItem key={cartItem.id} cartItem={cartItem}/>)
-            }
+            cartItems.map(cartItem => <CheckoutItem key={cartItem.id} cartItem={cartItem} />)
+        }
         <TotalContainer>
             <span>TOTAL: ${total} </span>
             <WarningContainer>
@@ -37,11 +37,11 @@ const CheckoutPage = ({cartItems, total}) => (
                 <br />
                 4242 4242 4242 4242 - exp: 01/20 - cvv:123
             </WarningContainer>
-            <StripeCheckedoutButton price={total}/>
+            <StripeCheckoutButton price={total} />
         </TotalContainer>
     </CheckoutPageContainer>
 )
-const mapStateToProps = createStructuredSelector ({
+const mapStateToProps = createStructuredSelector({
     cartItems: selectCartItems,
     total: selectCartTotal
 })

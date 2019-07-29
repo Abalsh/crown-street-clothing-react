@@ -1,29 +1,45 @@
 import React from 'react';
 import StripeCheckout from 'react-stripe-checkout';
+import axios from 'axios';
 
-// This is because we are not going to have digital payments actually sent through our backend.
-const onToken = (token) => {
-    console.log(token)
-    alert('Paid')
-}
+const StripeCheckoutButton = ({ price }) => {
+  const priceForStripe = price * 100;
+  const publishableKey = 'pk_test_4AiImrkGT93qdZ0Poeb2ExsH00PegOxn7o';
 
-const SripeCheckedoutButton = ({ price }) => {
-    const priceForStripe = price * 100; // stripe accepts in cents only
-    const publicKey = 'pk_test_4AiImrkGT93qdZ0Poeb2ExsH00PegOxn7o' // devs, change this to your pub. key from stripe
-    return(
-    <div>
-        <StripeCheckout 
-        label='Pay With Your Credit/Debit Card'
-        name='CRWN Streetwear'
-        img= 'https://svgshare.com/i/CUz.svg'
-        description={`Your Total Is $${ price }`}
-        amount = { priceForStripe }
-        shippingAddress
-        billingAddress
-        panelLabel ='Pay Now'
-        token={onToken}
-        stripeKey={publicKey}
-        /> 
-    </div>
-)}
-export default SripeCheckedoutButton;
+  const onToken = token => {
+    axios({
+      url: 'payment',
+      method: 'post',
+      data: {
+        amount: priceForStripe,
+        token: token
+      }
+    })
+      .then(response => {
+        alert('succesful payment');
+      })
+      .catch(error => {
+        console.log('Payment Error: ', JSON.parse(error));
+        alert(
+          'There was an issue with your payment! Please make sure you use the provided credit card.'
+        );
+      });
+  };
+
+  return (
+    <StripeCheckout
+      label='Pay Now'
+      name='CRWN Clothing Ltd.'
+      billingAddress
+      shippingAddress
+      image='https://svgshare.com/i/CUz.svg'
+      description={`Your total is $${price}`}
+      amount={priceForStripe}
+      panelLabel='Pay Now'
+      token={onToken}
+      stripeKey={publishableKey}
+    />
+  );
+};
+
+export default StripeCheckoutButton;
