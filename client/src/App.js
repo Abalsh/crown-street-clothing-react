@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import './App.css';
+
+
 import { Switch, Route,Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { selectCurrentUser } from './redux/user/user.selectors';
@@ -13,6 +14,8 @@ import CheckoutPage from './pages/checkout/checkout.component';
 import {checkUserSession} from './redux/user/user.actions';
 
 
+import {GlobalStyle} from './global.styles';
+
 const App = ({ checkUserSession, currentUser }) => {
   useEffect(() => {
     checkUserSession()
@@ -20,6 +23,7 @@ const App = ({ checkUserSession, currentUser }) => {
     // we put checkUserSession in the array because it's a prop passed from another componented  
   return (
       <div className="App">
+        <GlobalStyle />
         <Header />
         <Switch>
           <Route exact path='/' component={HomePage} />
